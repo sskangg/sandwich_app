@@ -6,27 +6,48 @@ export default function renderOrder(props) {
   const { order, cancelOrder, completeOrder } = props;
 
   return (
-    <div className={"order_container"}>
-      <div className={"order_header"}>
-        <h3 className={"order_name"}>Customer: {order.orderName}</h3>
-        <h3 className={"order_active-time"}>Active: {order.getActiveTime()}</h3>
+    <div className={"order_container grid-box"}>
+      <div className={"order_header-wrapper"}>
+        <div className={"order_header"}>
+          <h4 className={"order_name"}>Customer: {order.orderName}</h4>
+          <h4
+            className={`order_active-time ${
+              order.getActiveTime() > 20 ? "urgent" : ""
+            }`}
+          >
+            Active: {order.getActiveTime()} min
+          </h4>
+        </div>
+        <h4>Order Items:</h4>
+        <hr />
       </div>
-      <div className={"order_item-list"}>
-        <RenderItemList itemList={order.itemList} />
-        <div className={"order_item-list-total"}>
-          <h3>Total {order.getTotalCost()}</h3>
+      <div className={"order_item-list-wrapper"}>
+        <div className={"order_item-list"}>
+          <RenderItemList itemList={order.itemList} />
         </div>
       </div>
-      <div className={"order_buttons"}>
-        {order.timeCompleted ? (
-          "Complete"
-        ) : (
-          <>
-            <button>edit order</button>
-            <button onClick={() => cancelOrder(order)}>Cancel</button>
-            <button onClick={() => completeOrder(order)}>Pick Up</button>
-          </>
-        )}
+      <div className={"order_buttons-wrapper"}>
+        <div className={"order_buttons"}>
+          {order.timeCompleted ? (
+            "Complete"
+          ) : (
+            <>
+              <button className={"button_float"}>{"\u270E"} edit order</button>
+              <button
+                className={"button_secondary"}
+                onClick={() => cancelOrder(order)}
+              >
+                Cancel
+              </button>
+              <button
+                className={"button_primary"}
+                onClick={() => completeOrder(order)}
+              >
+                Pick Up
+              </button>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

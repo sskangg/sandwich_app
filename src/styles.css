@@ -1,0 +1,93 @@
+body {
+  color: #51596a;
+  background: #fff;
+  font: 16px/1.625 "Lato", "Arial", "Helvetica Neue", "Helvetica", sans-serif;
+  min-width: 320px;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+  margin: 0% 1%;
+}
+
+h4 {
+  margin: 4px 4px;
+}
+
+p {
+  margin: 0px;
+}
+
+button {
+  font: inherit;
+  margin: 1%;
+}
+
+form {
+  width: auto;
+}
+
+.order-grid_wrapper {
+  max-width: 65rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1rem;
+}
+
+.order-grid_grid {
+  --auto-grid-min-size: 16rem;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--auto-grid-min-size), 1fr)
+  );
+  grid-gap: 1rem;
+}
+
+.order-grid_grid > * {
+  max-width: 400px;
+}
+
+.order-grid_create {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+}
+
+.button_primary {
+  color: #fff;
+  background: #ff4949;
+  border-radius: 2px;
+  font-weight: 900;
+  border: 1px solid #ff4949;
+}
+
+.button_secondary {
+  background-color: #fff;
+  border: 1px solid #51596a;
+  border-radius: 2px;
+  color: #51596a;
+  font-weight: 900;
+}
+
+.button_float {
+  background-color: transparent;
+  border: none;
+  color: none;
+}
+
+.tool-bar {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin: 0px 8px 16px 8px;
+}
+
+.order-grid_create-button {
+  width: max-content;
+}

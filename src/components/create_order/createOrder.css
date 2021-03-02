@@ -1,0 +1,23 @@
+.create-order_container {
+  background-color: #fffffff0;
+  border: solid 4px #51596a;
+  border-radius: 8px;
+  width: 70%;
+  margin: auto;
+}
+
+.create-order_selection-container {
+  margin: 8px;
+}
+
+.create-order_menu {
+  display: flex;
+  flex-flow: row nowrap;
+  overflow-x: auto;
+  justify-content: center;
+}
+
+.create-order_buttons-container {
+  text-align: right;
+  margin-bottom: 4px;
+}

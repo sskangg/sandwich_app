@@ -1,20 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import "./createOrder.css";
 import Order from "../../src/order";
 import Menu from "../menu/Menu";
 import RenderItemList from "../render_item_list/RenderItemList";
 
 export default function CreateOrder(props) {
-  const [orderName, setOrderName] = useState(),
+  const [order] = useState(new Order()),
+    [orderName, setOrderName] = useState(),
     [itemList, setItemList] = useState([]),
     { addOrderToList, cancelOrderCreation, inventory } = props;
 
   // TODO Add inventory check
 
-  const addItem = (itemToAdd) => setItemList([...itemList, itemToAdd]);
+  useEffect(() => {
+    setItemList([...order.itemList]);
+    setOrderName(order.orderName);
+  }, [order.itemList, order.orderName]);
+
+  const addItem = (itemToAdd) => {
+    order.addItem(itemToAdd);
+    setItemList([...itemList, itemToAdd]);
+  };
+
+  const changeOrderName = (newName) => {
+    order.orderName = newName;
+    setOrderName(newName);
+  };
 
   const createOrder = () => {
-    addOrderToList(new Order(orderName, itemList));
+    addOrderToList(order);
   };
 
   return (
@@ -27,17 +41,26 @@ export default function CreateOrder(props) {
             type={"text"}
             placeholder={"Order name"}
             id={"orderName"}
-            onChange={(event) => setOrderName(event.target.value)}
+            onChange={changeOrderName}
           />
         </form>
-        <Menu addItem={addItem} inventory={inventory} />
+        <h4>Sandwiches</h4>
+        <div className={"create-order_menu"}>
+          <Menu addItem={addItem} inventory={inventory} />
+        </div>
+        <hr />
       </div>
       <div className={"create-order_order-summary-container"}>
-        <RenderItemList itemList={itemList} />
+        <RenderItemList order={order} />
       </div>
       <div className={"create-order_buttons-container"}>
-        <button onClick={cancelOrderCreation}>Cancel</button>
-        <button onClick={(currentOrder) => createOrder(currentOrder)}>
+        <button className={"button_secondary"} onClick={cancelOrderCreation}>
+          Cancel
+        </button>
+        <button
+          className={"button_primary"}
+          onClick={(currentOrder) => createOrder(currentOrder)}
+        >
           Create
         </button>
       </div>

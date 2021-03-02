@@ -1,0 +1,10 @@
+.render-item-list_container {
+  overflow-y: auto;
+}
+
+.render-item-list_item {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 2%;
+  justify-content: space-between;
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./searchBar.css";
 
 export default function searchBar(props) {
@@ -7,7 +7,7 @@ export default function searchBar(props) {
 
   return (
     <div className={"searchbar_container"}>
-      <form>
+      <div>
         <label htmlFor={"searchText"}>Search:</label>
         <input
           type={"text"}
@@ -15,6 +15,8 @@ export default function searchBar(props) {
           id={"searchText"}
           onChange={updateSearchText}
         />
+      </div>
+      <div>
         <input
           type={"checkbox"}
           id={"includeCompleted"}
@@ -22,7 +24,7 @@ export default function searchBar(props) {
           onChange={updateIncludeCompleted}
         />
         <label htmlFor={"includeCompleted"}>Include Completed Orders</label>
-      </form>
+      </div>
     </div>
   );
 }

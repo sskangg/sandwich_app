@@ -88,41 +88,53 @@ export default function App() {
   };
 
   return (
-    <main>
+    <>
       <Header
         numActiveOrders={numActiveOrders}
         avgCompletionTime={avgCompletionTime}
       />
-      <SearchBar
-        searchText={searchText}
-        includeCompleted={includeCompletedToggle}
-        updateSearchText={updateSearchText}
-        updateIncludeCompleted={updateIncludeCompleted}
-      />
-      <div className={"order-grid_create"}>
-        {creatingOrder ? (
-          <CreateOrder
-            addOrderToList={addOrderToList}
-            cancelOrderCreation={cancelOrderCreation}
-            inventory={inventory}
+      <main>
+        <div className={"tool-bar"}>
+          <SearchBar
+            searchText={searchText}
+            includeCompleted={includeCompletedToggle}
+            updateSearchText={updateSearchText}
+            updateIncludeCompleted={updateIncludeCompleted}
           />
-        ) : (
-          <button onClick={createNewOrder}>Create New Order</button>
-        )}
-        <div className={"order-grid_grid"}>
-          <div className={"order-grid_active-orders"}>
-            {orderList.map((order, index) => (
-              <RenderOrder
-                order={order}
-                cancelOrder={cancelOrder}
-                completeOrder={completeOrder}
-                key={index}
-              />
-            ))}
+          <div>
+            <button
+              className={"order-grid_create-button button_primary"}
+              onClick={createNewOrder}
+            >
+              New Order
+            </button>
           </div>
-          {includeCompletedToggle ? (
+        </div>
+        <div className={"order-grid_create"}>
+          {creatingOrder ? (
+            <CreateOrder
+              addOrderToList={addOrderToList}
+              cancelOrderCreation={cancelOrderCreation}
+              inventory={inventory}
+            />
+          ) : (
+            ""
+          )}
+        </div>
+        <div className={"order-grid_wrapper"}>
+          <div className={"order-grid_grid"}>
             <>
-              <div className={"order-grid_completed-orders"}>
+              {orderList.map((order, index) => (
+                <RenderOrder
+                  order={order}
+                  cancelOrder={cancelOrder}
+                  completeOrder={completeOrder}
+                  key={index}
+                />
+              ))}
+            </>
+            {includeCompletedToggle ? (
+              <>
                 {completedOrders.map((order, index) => (
                   <RenderOrder
                     order={order}
@@ -131,13 +143,13 @@ export default function App() {
                     key={index}
                   />
                 ))}
-              </div>
-            </>
-          ) : (
-            <></>
-          )}
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

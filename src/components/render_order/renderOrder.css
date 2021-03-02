@@ -1,0 +1,38 @@
+.grid-box {
+  max-height: 400px;
+  border: solid;
+  border-radius: 8px;
+  padding: 0px 8px;
+  box-shadow: 0 0 15px rgb(0 0 0 / 20%);
+  transition: all 500ms cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.order_container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.order_header {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.order_buttons-wrapper {
+  text-align: right;
+  margin-bottom: 4px;
+}
+
+.urgent {
+  color: rgb(136, 0, 0) !important;
+}
+
+.order_item-list {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}

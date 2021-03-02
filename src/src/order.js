@@ -64,10 +64,9 @@ export default class Order {
    * @returns {number} - 0.0 if the list is empty or the sum total of the items prices in the item list.
    */
   getTotalCost = () =>
-    this._itemList.reduce(
-      (totalCost, itemObject) => totalCost + itemObject.price,
-      0.0
-    );
+    this._itemList
+      .reduce((totalCost, itemObject) => totalCost + itemObject.price, 0.0)
+      .toFixed(2);
 
   getActiveTime = () => {
     let diffMs = this._timeCompleted
