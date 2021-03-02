@@ -3,7 +3,7 @@ import Header from "./components/header/Header";
 import SearchBar from "./components/search_bar/SearchBar";
 import RenderOrder from "./components/render_order/RenderOrder";
 import CreateOrder from "./components/create_order/CreateOrder";
-
+import Order from "./src/order";
 import * as data from "./data.json";
 import "./styles.css";
 
@@ -45,7 +45,7 @@ export default function App() {
     [orderList, setOrderList] = useState([]),
     [completedOrders, setCompletedOrders] = useState([]),
     [inventory, setInventory] = useState(data.inventory),
-    [creatingOrder, setCreatingOrder] = useState(false);
+    [newOrder, setNewOrder] = useState(undefined);
 
   const updateSearchText = (event) => {
     setSearchText(event.target.value);
@@ -56,11 +56,11 @@ export default function App() {
   };
 
   const createNewOrder = () => {
-    setCreatingOrder(true);
+    setNewOrder(new Order());
   };
 
   const cancelOrderCreation = () => {
-    setCreatingOrder(false);
+    setNewOrder(undefined);
   };
 
   const addOrderToList = (newOrder) => {
@@ -111,15 +111,14 @@ export default function App() {
           </div>
         </div>
         <div className={"order-grid_create"}>
-          {creatingOrder ? (
+          {newOrder ? (
             <CreateOrder
               addOrderToList={addOrderToList}
               cancelOrderCreation={cancelOrderCreation}
               inventory={inventory}
+              data={newOrder}
             />
-          ) : (
-            ""
-          )}
+          ) : null}
         </div>
         <div className={"order-grid_wrapper"}>
           <div className={"order-grid_grid"}>

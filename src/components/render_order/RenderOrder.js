@@ -23,7 +23,7 @@ export default function renderOrder(props) {
       </div>
       <div className={"order_item-list-wrapper"}>
         <div className={"order_item-list"}>
-          <RenderItemList itemList={order.itemList} />
+          <RenderItemList order={order} />
         </div>
       </div>
       <div className={"order_buttons-wrapper"}>

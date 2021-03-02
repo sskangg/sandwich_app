@@ -1,34 +1,28 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import "./createOrder.css";
-import Order from "../../src/order";
 import Menu from "../menu/Menu";
 import RenderItemList from "../render_item_list/RenderItemList";
 
 export default function CreateOrder(props) {
-  const [order] = useState(new Order()),
-    [orderName, setOrderName] = useState(),
-    [itemList, setItemList] = useState([]),
-    { addOrderToList, cancelOrderCreation, inventory } = props;
+  const { data, addOrderToList, cancelOrderCreation, inventory } = props,
+    [editingOrder, setEditingOrder] = useState(data.clone());
 
   // TODO Add inventory check
 
-  useEffect(() => {
-    setItemList([...order.itemList]);
-    setOrderName(order.orderName);
-  }, [order.itemList, order.orderName]);
-
   const addItem = (itemToAdd) => {
-    order.addItem(itemToAdd);
-    setItemList([...itemList, itemToAdd]);
+    const updatedOrder = editingOrder.clone();
+    updatedOrder.addItem(itemToAdd);
+    setEditingOrder(updatedOrder);
   };
 
   const changeOrderName = (newName) => {
-    order.orderName = newName;
-    setOrderName(newName);
+    const updatedOrder = editingOrder.clone();
+    updatedOrder.orderName = newName;
+    setEditingOrder(updatedOrder);
   };
 
   const createOrder = () => {
-    addOrderToList(order);
+    addOrderToList(editingOrder);
   };
 
   return (
@@ -51,7 +45,9 @@ export default function CreateOrder(props) {
         <hr />
       </div>
       <div className={"create-order_order-summary-container"}>
-        <RenderItemList order={order} />
+        {editingOrder && editingOrder.itemList ? (
+          <RenderItemList order={data} />
+        ) : null}
       </div>
       <div className={"create-order_buttons-container"}>
         <button className={"button_secondary"} onClick={cancelOrderCreation}>

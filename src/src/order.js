@@ -8,11 +8,16 @@ export default class Order {
    * @param {Object[] = []} itemList - The list of items in the order. Contains the item name, price, and image. These items are objects defined by the structure in ./item.js.
    */
 
-  constructor(orderName = "", itemList = []) {
+  constructor(
+    orderName = "",
+    itemList = [],
+    timeCreated = new Date(),
+    timeCompleted = undefined
+  ) {
     this._orderName = orderName;
     this._itemList = itemList;
-    this._timeCreated = new Date(Date.now());
-    this._timeCompleted = undefined;
+    this._timeCreated = timeCreated;
+    this._timeCompleted = timeCompleted;
     this._id = `${this.orderName}_${this.timeCreated}`;
   }
 
@@ -35,6 +40,14 @@ export default class Order {
   get timeCompleted() {
     return this._timeCompleted;
   }
+
+  clone = () =>
+    new Order(
+      this._orderName,
+      this._itemList,
+      this._timeCreated,
+      this._timeCompleted
+    );
 
   /**
    * Marks the time the order is completed. This can only be done once.

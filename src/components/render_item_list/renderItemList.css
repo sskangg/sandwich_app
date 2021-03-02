@@ -1,10 +1,16 @@
 .render-item-list_container {
   overflow-y: auto;
+  margin: 2%;
+  max-height: 80%;
 }
 
 .render-item-list_item {
   display: flex;
   flex-flow: row wrap;
-  margin: 2%;
   justify-content: space-between;
+  max-height: 50%;
+}
+
+.render-item-list_total {
+  text-align: right;
 }

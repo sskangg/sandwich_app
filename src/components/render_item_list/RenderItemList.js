@@ -1,16 +1,20 @@
 import React from "react";
 import "./renderItemList.css";
 
-export default function renderOrderList(props) {
+export default function renderItemList(props) {
   const { order } = props,
     itemList = order.itemList;
 
   return (
     <div className={"render-item-list_container"}>
       {itemList
-        ? itemList.map((item) => {
+        ? itemList.map((item, index) => {
             return (
-              <div className={"render-item-list_item"} id={item.name}>
+              <div
+                className={"render-item-list_item"}
+                id={item.name}
+                key={index}
+              >
                 <p>{item.name}</p>
                 <p>${item.price}</p>
               </div>
@@ -18,7 +22,7 @@ export default function renderOrderList(props) {
           })
         : "No items selected"}
       <hr />
-      <div className={"order_item-list-total"}>
+      <div className={"render-item-list_total"}>
         <h3>Total ${order.getTotalCost()}</h3>
       </div>
     </div>
