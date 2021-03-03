@@ -3,7 +3,7 @@ import RenderItemList from "../render_item_list/RenderItemList";
 import "./renderOrder.css";
 
 export default function renderOrder(props) {
-  const { order, cancelOrder, completeOrder } = props;
+  const { order, cancelOrder, completeOrder, editOrder } = props;
 
   return (
     <div className={"order_container grid-box"}>
@@ -21,18 +21,19 @@ export default function renderOrder(props) {
         <h4>Order Items:</h4>
         <hr />
       </div>
-      <div className={"order_item-list-wrapper"}>
-        <div className={"order_item-list"}>
-          <RenderItemList order={order} />
-        </div>
-      </div>
+      <RenderItemList order={order} size={"small"} />
       <div className={"order_buttons-wrapper"}>
         <div className={"order_buttons"}>
           {order.timeCompleted ? (
             "Complete"
           ) : (
             <>
-              <button className={"button_float"}>{"\u270E"} edit order</button>
+              <button
+                className={"button_float"}
+                onClick={() => editOrder(order)}
+              >
+                {"\u270E"} edit order
+              </button>
               <button
                 className={"button_secondary"}
                 onClick={() => cancelOrder(order)}

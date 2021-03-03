@@ -5,21 +5,31 @@ import "./menu.css";
 
 export default function menu(props) {
   const { addItem, inventory } = props;
-  return data.menu.map((itemInfo, index) => {
-    // Turn off sandwich if inventory is unavailable.
-    let available = true;
-    for (let ingredient in itemInfo.ingredients) {
-      if (inventory[ingredient] < itemInfo.ingredients[ingredient]) {
-        available = false;
-      }
-    }
-    return (
-      <MenuItem
-        available={available}
-        itemInfo={itemInfo}
-        addItem={addItem}
-        key={index}
-      />
-    );
-  });
+
+  return (
+    <div className={"menu_container"}>
+      {data.menu.map((itemInfo, index) => {
+        let available = true;
+
+        for (let ingredient in itemInfo.ingredients) {
+          if (inventory[ingredient] < itemInfo.ingredients[ingredient]) {
+            available = false;
+          }
+        }
+
+        // console.log(
+        //   `${itemInfo.name} is ${available ? "available" : "not-available"}`
+        // );
+
+        return (
+          <MenuItem
+            available={available}
+            itemInfo={itemInfo}
+            addItem={addItem}
+            key={index}
+          />
+        );
+      })}
+    </div>
+  );
 }

@@ -1,14 +1,20 @@
-.render-item-list_container {
+.render-item_item-list {
   overflow-y: auto;
   margin: 2%;
-  max-height: 80%;
+}
+
+.list-size_small {
+  max-height: 150px;
+}
+
+.list-size_medium {
+  max-height: 250px;
 }
 
 .render-item-list_item {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  max-height: 50%;
 }
 
 .render-item-list_total {

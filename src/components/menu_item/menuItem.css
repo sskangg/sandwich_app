@@ -1,0 +1,18 @@
+.menu-item_button {
+  width: 25%;
+  max-height: 300px;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 0 15px rgb(0 0 0 / 20%);
+  border: 2px solid #51596a;
+}
+
+.menu-item_image {
+  max-width: 98%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.menu-item_description {
+  text-align: left;
+}

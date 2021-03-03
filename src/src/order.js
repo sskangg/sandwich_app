@@ -41,6 +41,10 @@ export default class Order {
     return this._timeCompleted;
   }
 
+  get id() {
+    return this._id;
+  }
+
   clone = () =>
     new Order(
       this._orderName,

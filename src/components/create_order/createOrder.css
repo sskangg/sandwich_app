@@ -1,20 +1,48 @@
+.create-order_wrapper {
+  width: 70%;
+  max-width: 900px;
+  margin: auto;
+  position: fixed;
+  top: 10%;
+  left: 15%;
+  max-height: 80%;
+}
+
 .create-order_container {
   background-color: #fffffff0;
   border: solid 4px #51596a;
   border-radius: 8px;
-  width: 70%;
-  margin: auto;
+  overflow: auto;
+  z-index: 10;
+  padding: 8px;
 }
 
-.create-order_selection-container {
-  margin: 8px;
-}
-
-.create-order_menu {
+.create-order_top-line {
   display: flex;
-  flex-flow: row nowrap;
-  overflow-x: auto;
-  justify-content: center;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  font-size: 2rem;
+  align-items: baseline;
+}
+
+.create-order_name-input {
+  height: 2rem;
+  font-size: 2rem;
+  border-radius: 4px;
+  border: 2px solid #51596a;
+}
+
+.required-label {
+  color: rgb(136, 0, 0);
+  font-size: 0.8rem;
+}
+
+.required {
+  border: 2px solid rgb(136, 0, 0);
+}
+
+.create-order_title {
+  margin: 0px 4px;
 }
 
 .create-order_buttons-container {

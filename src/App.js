@@ -38,8 +38,7 @@ import "./styles.css";
  */
 
 export default function App() {
-  const [numActiveOrders, setNumActiveOrders] = useState(0),
-    [avgCompletionTime, setAvgCompletionTime] = useState(0),
+  const [avgCompletionTime, setAvgCompletionTime] = useState(0),
     [searchText, setSearchText] = useState(""),
     [includeCompletedToggle, setIncludeCompletedToggle] = useState(false),
     [orderList, setOrderList] = useState([]),
@@ -51,7 +50,7 @@ export default function App() {
     setSearchText(event.target.value);
   };
 
-  const updateIncludeCompleted = (event) => {
+  const updateIncludeCompleted = () => {
     setIncludeCompletedToggle(!includeCompletedToggle);
   };
 
@@ -64,7 +63,21 @@ export default function App() {
   };
 
   const addOrderToList = (newOrder) => {
-    setOrderList([newOrder, ...orderList]);
+    console.log(newOrder);
+    console.log(orderList);
+    const existingOrder = orderList.find((order) => order.id === newOrder.id);
+    const newOrderList = [...orderList];
+
+    console.log(existingOrder);
+
+    if (existingOrder) {
+      let index = orderList.indexOf(existingOrder);
+      newOrderList[index] = newOrder;
+    } else {
+      newOrderList.unshift(newOrder);
+    }
+
+    setOrderList(newOrderList);
     cancelOrderCreation();
   };
 
@@ -72,8 +85,19 @@ export default function App() {
     // TODO add dialogue box to confirm cancel
     const index = orderList.indexOf(order);
     let modifiedOrderList = [...orderList];
-    modifiedOrderList.splice(index, 1);
+    const removedOrder = modifiedOrderList.splice(index, 1)[0];
+    const updatedInventory = { ...inventory };
+
+    console.log(removedOrder);
+
+    removedOrder.itemList.forEach((item) => {
+      for (let ingredient in item.ingredients) {
+        updatedInventory[ingredient] += item.ingredients[ingredient];
+      }
+    });
+
     setOrderList(modifiedOrderList);
+    setInventory(updatedInventory);
   };
 
   const completeOrder = (order) => {
@@ -87,10 +111,14 @@ export default function App() {
     cancelOrder(order);
   };
 
+  const editOrder = (order) => {
+    setNewOrder(order);
+  };
+
   return (
     <>
       <Header
-        numActiveOrders={numActiveOrders}
+        numActiveOrders={orderList.length}
         avgCompletionTime={avgCompletionTime}
       />
       <main>
@@ -110,16 +138,16 @@ export default function App() {
             </button>
           </div>
         </div>
-        <div className={"order-grid_create"}>
-          {newOrder ? (
-            <CreateOrder
-              addOrderToList={addOrderToList}
-              cancelOrderCreation={cancelOrderCreation}
-              inventory={inventory}
-              data={newOrder}
-            />
-          ) : null}
-        </div>
+        {newOrder ? (
+          <CreateOrder
+            addOrderToList={addOrderToList}
+            cancelOrderCreation={cancelOrderCreation}
+            editOrder={editOrder}
+            inventory={inventory}
+            data={newOrder}
+            updateInventory={setInventory}
+          />
+        ) : null}
         <div className={"order-grid_wrapper"}>
           <div className={"order-grid_grid"}>
             <>
@@ -128,6 +156,7 @@ export default function App() {
                   order={order}
                   cancelOrder={cancelOrder}
                   completeOrder={completeOrder}
+                  editOrder={editOrder}
                   key={index}
                 />
               ))}

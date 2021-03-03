@@ -11,7 +11,7 @@
     {
       "name": "Vegetarian",
       "price": 8.99,
-      "image": "/src/images/veggie_sandwich.jpg",
+      "image": "https://thekitchengirl.com/wp-content/uploads/Vegan-Veggie-Sandwich-Even-Meat-Eaters-Love-Recipe-by-The-Kitchen-Girl_12.jpg",
       "ingredients": {
         "bread": 2,
         "lettuce": 2,
@@ -22,7 +22,7 @@
     {
       "name": "BLT",
       "price": 9.99,
-      "image": "/src/images/blt_sandwich.jpg",
+      "image": "https://res.cloudinary.com/hksqkdlah/image/upload/31058_sfs-ultimate-blt-sandwich-16.jpg",
       "ingredients": {
         "bread": 3,
         "lettuce": 1,
@@ -33,7 +33,7 @@
     {
       "name": "Turkey",
       "price": 10.99,
-      "image": "/src/images/turkey_sandwich.jpg",
+      "image": "https://www.jennieo.com/wp-content/uploads/2019/11/image-recipe_cracked-pepper-turkey-sandwich.jpg",
       "ingredients": {
         "bread": 2,
         "lettuce": 1,
