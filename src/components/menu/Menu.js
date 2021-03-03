@@ -6,9 +6,11 @@ import "./menu.css";
 export default function menu(props) {
   const { addItem, inventory } = props;
 
+  const fetchMenu = () => data.menu;
+
   return (
     <div className={"menu_container"}>
-      {data.menu.map((itemInfo, index) => {
+      {fetchMenu().map((itemInfo, index) => {
         let available = true;
 
         for (let ingredient in itemInfo.ingredients) {

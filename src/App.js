@@ -83,16 +83,22 @@ export default function App() {
     cancelOrderCreation();
   };
 
-  const cancelOrder = (order) => {
-    // TODO add dialogue box to confirm cancel
+  const removeOrder = (order) => {
     let updatedOrderList = [...orderList];
     const index = orderList.indexOf(order),
-      removedOrder = updatedOrderList.splice(index, 1)[0],
-      updatedInventory = new Inventory({ ...inventory.clone() });
+      removedOrder = updatedOrderList.splice(index, 1)[0];
+
+    setOrderList(updatedOrderList);
+    return removedOrder;
+  };
+
+  const cancelOrder = (order) => {
+    // TODO add dialogue box to confirm cancel
+    const updatedInventory = new Inventory({ ...inventory.clone() }),
+      removedOrder = removeOrder(order);
 
     updatedInventory.addOrderToInventory(removedOrder);
 
-    setOrderList(updatedOrderList);
     setInventory(updatedInventory);
   };
 
@@ -104,7 +110,8 @@ export default function App() {
         order.getCompletionTime() / (completedOrders.length + 1)
     );
     setCompletedOrders([completedOrder, ...completedOrders]);
-    cancelOrder(order);
+    removeOrder(order);
+    cancelOrderCreation();
   };
 
   const editOrder = (order) => {
@@ -134,7 +141,7 @@ export default function App() {
             </button>
           </div>
         </div>
-        {/* <div>{JSON.stringify(inventory && inventory.inventory)}</div> */}
+        <div>{JSON.stringify(inventory && inventory.inventory)}</div>
         {newOrder ? (
           <CreateOrder
             addOrderToList={addOrderToList}

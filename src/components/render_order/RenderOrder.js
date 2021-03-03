@@ -6,16 +6,22 @@ export default function renderOrder(props) {
   const { order, cancelOrder, completeOrder, editOrder } = props;
 
   return (
-    <div className={"order_container grid-box"}>
+    <div
+      className={`order_container grid-box ${
+        order.timeCompleted && "completed-order"
+      }`}
+    >
       <div className={"order_header-wrapper"}>
         <div className={"order_header"}>
           <h4 className={"order_name"}>Customer: {order.orderName}</h4>
           <h4
             className={`order_active-time ${
-              order.getActiveTime() > 20 ? "urgent" : ""
+              order.getActiveTime() > 20 && "urgent"
             }`}
           >
-            Active: {order.getActiveTime()} min
+            {order.timeCompleted
+              ? `Completed: ${order.timeCompleted.toLocaleTimeString()}`
+              : `Active: ${order.getActiveTime()} min`}
           </h4>
         </div>
         <h4>Order Items:</h4>

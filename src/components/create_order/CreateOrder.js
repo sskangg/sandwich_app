@@ -66,8 +66,6 @@ export default function CreateOrder(props) {
     cancelOrderCreation();
   };
 
-  console.log(data === editingOrder);
-
   return (
     <div className={"create-order_wrapper"}>
       <div className={"create-order_container"}>

@@ -25,6 +25,11 @@ export default function renderItemList(props) {
                         {"\u2715"}
                       </button>
                     )}
+                    <img
+                      className={"render-item-list_image-thumb"}
+                      src={item.image}
+                      alt={""}
+                    />
                     <p>{item.name}</p>
                   </div>
                   <div className={"render-item-list_price-wrapper"}>

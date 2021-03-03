@@ -16,7 +16,7 @@
 
 .create-order_container {
   overflow: auto;
-  z-index: 10;
+  z-index: 1000;
   padding: 8px;
 }
 

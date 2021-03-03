@@ -45,6 +45,10 @@ export default class Order {
     return this._id;
   }
 
+  /**
+   * Placeholder for a deep copy
+   * @returns The instances attributes.
+   */
   clone = () => {
     // Shallow copy this instance
     const copy = [
@@ -76,24 +80,30 @@ export default class Order {
   /**
    * Remove an item from the order
    * @param {Object} item - The Item to remove
+   * @returns {Object} - The Item removed
    */
-  removeItem = (index) => this._itemList.splice(index, 1);
+  removeItem = (index) => this._itemList.splice(index, 1)[0];
 
   /**
    * Returns the number of items in the order
+   * @returns {Number}
    */
   getNumItems = () => this._itemList.length;
 
   /**
    * Returns the order's total cost
    * @summary Checks to see if the order is empty, then loops through the items in the order list, summing their prices.
-   * @returns {number} - 0.0 if the list is empty or the sum total of the items prices in the item list.
+   * @returns {Number} - 0.0 if the list is empty or the sum total of the items prices in the item list.
    */
   getTotalCost = () =>
     this._itemList
       .reduce((totalCost, itemObject) => totalCost + itemObject.price, 0.0)
       .toFixed(2);
 
+  /**
+   * How many minutes the order has been active
+   * @returns {Number} - The number of minutes since the order was created.
+   */
   getActiveTime = () => {
     let diffMs = this._timeCompleted
       ? this._timeCompleted - new Date()
@@ -101,6 +111,10 @@ export default class Order {
     return Math.floor(((diffMs % 86400000) % 3600000) / 60000);
   };
 
+  /**
+   * The number of minutes it took to complete the order
+   * @returns {Number} - The difference in minutes between order creation and completion
+   */
   getCompletionTime = () => {
     let diffMs = this._timeCompleted - this._timeCreated;
     return Math.floor(((diffMs % 86400000) % 3600000) / 60000);
