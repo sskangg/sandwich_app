@@ -4,12 +4,13 @@ Created with CodeSandbox
 
 ## Notes on Development
 
-Total Project Time: ~20 hrs
-Wireframes: [invisionApp](https://projects.invisionapp.com/freehand/document/5EMWjS6xr)
-Github: [sandwich app](https://github.com/jtmcg/sandwich_app)
-Tech: React with JavaScript
-Testing: Manual - plan to add Jest testing later
-Commenting: JSDoc
+- Total Project Time: ~20 hrs
+- Wireframes: [invisionApp](https://projects.invisionapp.com/freehand/document/5EMWjS6xr)
+- Github: [sandwich app](https://github.com/jtmcg/sandwich_app)
+- CodeSandbox: [sandwich app](https://codesandbox.io/s/nervous-edison-b670x?file=/README.md)
+- Tech: React with JavaScript
+- Testing: Manual - plan to add Jest testing later
+- Commenting: JSDoc
 
 ### Extensibility
 
