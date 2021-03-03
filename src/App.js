@@ -141,7 +141,7 @@ export default function App() {
             </button>
           </div>
         </div>
-        <div>{JSON.stringify(inventory && inventory.inventory)}</div>
+        {/* <div>{JSON.stringify(inventory && inventory.inventory)}</div> */}
         {newOrder ? (
           <CreateOrder
             addOrderToList={addOrderToList}

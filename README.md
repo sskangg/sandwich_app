@@ -7,10 +7,20 @@ Created with CodeSandbox
 - Total Project Time: ~20 hrs
 - Wireframes: [invisionApp](https://projects.invisionapp.com/freehand/document/5EMWjS6xr)
 - Github: [sandwich app](https://github.com/jtmcg/sandwich_app)
-- CodeSandbox: [sandwich app](https://codesandbox.io/s/nervous-edison-b670x?file=/README.md)
+- CodeSandbox: [sandwich app](https://codesandbox.io/s/nervous-edison-b670x)
 - Tech: React with JavaScript
 - Testing: Manual - plan to add Jest testing later
 - Commenting: JSDoc
+
+### Assumptions
+
+1. This app is designed for customer-facing workers managing a register, not building orders.
+1. This app is part of a larger ecosystem where components designed here should be extensible to other applications.
+1. The `data.json` file represents the response (or a collection of responses) from an API call.
+1. This is built for a computer screen or tablet - not a phone.
+1. There will be more than just 3 menu items in the future.
+1. This app will be making API requests to a database for the menu, inventory, and order history.
+1. There are no tax, tips, or service charges included.
 
 ### Extensibility
 
@@ -19,6 +29,10 @@ I tried to build this app to be as extensible so that it could fit into an exist
 1. There are [classes](./src/src) to manage orders, menu items, and inventory.
 1. There are fetch placeholders for API calls in the [Inventory](./src/src/inventory.js) class and in the [Menu Component](./src/components/menu/Menu.js).
 1. Components are self-contained and reusable.
+
+### Interesting Challenge: Deep Cloning vs Shallow Cloning Instances
+
+Turns out, this is a lot harder than I originally thought. After some research, I discovered that there are packages that help with this, but as a work around I added a stand-in `_.clone()` method to my classes that returned the instance's attributes, and made all the attributes optional in the constructor. That way, I could "Deep Clone" and object by calling `new ObjectConstructor(objectToClone.clone())`
 
 ### Stretch Features
 
@@ -54,3 +68,4 @@ Here are some highlights of some notable shortcomings of the implementation. Som
 1. Styling of the scroll-bars and other built-in elements.
 1. Custom built form components instead of HTML forms and bandaid css.
 1. Automatic timer updates instead of updating with a rerender. It should leverage a timeout or interval closure to update the time every minute.
+1. Some props are passed down several layers of children. This could be improved with reducers.
