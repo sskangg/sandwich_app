@@ -7,8 +7,16 @@ export default function header(props) {
   return (
     <div className={"header_container"}>
       <div className={"header_logo"}>
-        <img src={"https://picsum.photos/50"} alt={"random logo"} />
-        <h3>Deliverr Sandwiches</h3>
+        <img
+          src={
+            "https://deliverr.com/wp-content/uploads/2018/07/deliverr-logo-red-1024x208.png"
+          }
+          alt={"deliverr logo"}
+          className={"header_logo-image"}
+        />
+        <p className={"header_logo-sandwiches"}>
+          <i>Sandwiches</i>
+        </p>
       </div>
       <div className={"header_info"}>
         <h4>Active Orders: {numActiveOrders}</h4>

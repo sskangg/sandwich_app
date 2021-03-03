@@ -14,11 +14,20 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  width: 60%;
 }
 
-.header_logo > h3 {
+.header_logo-image {
+  max-height: 50px;
+}
+
+.header_logo-sandwiches {
+  font-size: 3rem;
   margin: auto 4px;
-  vertical-align: middle;
+  color: #eb3535;
+  position: relative;
 }
 
 .header_info {

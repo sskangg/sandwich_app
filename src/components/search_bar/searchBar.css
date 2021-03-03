@@ -8,6 +8,7 @@ label {
   align-items: center;
   height: 1.5rem;
   font-size: 1.5rem;
+  margin-bottom: 16px;
 }
 
 .searchbar_checkbox-container {
