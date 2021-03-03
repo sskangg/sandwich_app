@@ -88,7 +88,7 @@ export default function App() {
     let updatedOrderList = [...orderList];
     const index = orderList.indexOf(order),
       removedOrder = updatedOrderList.splice(index, 1)[0],
-      updatedInventory = inventory.clone();
+      updatedInventory = new Inventory({ ...inventory.clone() });
 
     updatedInventory.addOrderToInventory(removedOrder);
 
@@ -134,6 +134,7 @@ export default function App() {
             </button>
           </div>
         </div>
+        {/* <div>{JSON.stringify(inventory && inventory.inventory)}</div> */}
         {newOrder ? (
           <CreateOrder
             addOrderToList={addOrderToList}

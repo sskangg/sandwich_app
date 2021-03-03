@@ -45,13 +45,18 @@ export default class Order {
     return this._id;
   }
 
-  clone = () =>
-    new Order(
+  clone = () => {
+    // Shallow copy this instance
+    const copy = [
       this._orderName,
-      this._itemList,
-      this._timeCreated,
-      this._timeCompleted
-    );
+      [...this.itemList],
+      new Date(this.timeCreated),
+      this.timeCompleted ? new Date(this.timeCompleted) : undefined,
+      this._id
+    ];
+
+    return copy;
+  };
 
   /**
    * Marks the time the order is completed. This can only be done once.

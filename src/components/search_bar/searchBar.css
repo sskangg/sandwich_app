@@ -10,6 +10,10 @@ label {
   font-size: 1.5rem;
 }
 
+.searchbar_checkbox-container {
+  position: relative;
+}
+
 .searchbar_text-input {
   border-radius: 4px;
   border: 2px solid #51596a;
@@ -23,4 +27,6 @@ label {
   font-size: 2rem;
   border-radius: 4px;
   border: 2px solid #51596a;
+  margin: 0px 4px;
+  transform: translateY(12%);
 }

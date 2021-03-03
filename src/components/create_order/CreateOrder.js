@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./createOrder.css";
 import Menu from "../menu/Menu";
 import RenderItemList from "../render_item_list/RenderItemList";
+import Order from "../../src/order";
+import Inventory from "../../src/inventory";
 
 export default function CreateOrder(props) {
   const {
@@ -11,9 +13,11 @@ export default function CreateOrder(props) {
       inventory,
       updateInventory
     } = props,
-    [editingOrder, setEditingOrder] = useState(data.clone()),
+    [editingOrder, setEditingOrder] = useState(new Order(...data.clone())),
     [validName, setValidName] = useState(!!data.orderName),
-    [editingInventory, seteditingInventory] = useState(inventory),
+    [editingInventory, setEditingInventory] = useState(
+      new Inventory({ ...inventory.clone() })
+    ),
     [editing] = useState(!!data.orderName);
 
   useEffect(() => {
@@ -21,30 +25,30 @@ export default function CreateOrder(props) {
   }, []);
 
   const addItem = (item) => {
-    const updatedOrder = editingOrder.clone(),
-      updatedInventory = inventory.clone();
+    const updatedOrder = new Order(...editingOrder.clone()),
+      updatedInventory = new Inventory({ ...editingInventory.clone() });
 
     updatedInventory.subtractItemFromInventory(item);
     updatedOrder.addItem(item);
 
     setEditingOrder(updatedOrder);
-    seteditingInventory(updatedInventory);
+    setEditingInventory(updatedInventory);
   };
 
   const removeItem = (index) => {
-    const updatedOrder = editingOrder.clone(),
-      updatedInventory = inventory.clone(),
+    const updatedOrder = new Order(...editingOrder.clone()),
+      updatedInventory = new Inventory({ ...editingInventory.clone() }),
       removedItem = updatedOrder.removeItem(index)[0];
 
     updatedInventory.addItemToInventory(removedItem);
 
     setEditingOrder(updatedOrder);
-    seteditingInventory(updatedInventory);
+    setEditingInventory(updatedInventory);
   };
 
   const changeOrderName = (event) => {
     const newName = event.target.value;
-    const updatedOrder = editingOrder.clone();
+    const updatedOrder = new Order(...editingOrder.clone());
 
     updatedOrder.orderName = newName;
 
@@ -58,9 +62,11 @@ export default function CreateOrder(props) {
   };
 
   const dismissOrderCreation = () => {
-    updateInventory(editingInventory);
+    !editing && updateInventory(editingInventory);
     cancelOrderCreation();
   };
+
+  console.log(data === editingOrder);
 
   return (
     <div className={"create-order_wrapper"}>
@@ -76,25 +82,26 @@ export default function CreateOrder(props) {
             onChange={changeOrderName}
             className={`create-order_name-input ${validName ? "" : "required"}`}
           />
-          {validName ? null : (
+          {validName && (
             <label className={"required-label"} htmlFor={"orderName"}>
               *required
             </label>
           )}
         </div>
+        {/* <div>{JSON.stringify(editingInventory)}</div> */}
         <div className={"create-order_selection-container"}>
           <h4>Sandwiches</h4>
           <Menu addItem={addItem} inventory={editingInventory.inventory} />
           <hr />
         </div>
         <div className={"create-order_order-summary-container"}>
-          {editingOrder && editingOrder.itemList ? (
+          {editingOrder && editingOrder.itemList && (
             <RenderItemList
               order={editingOrder}
               size={"medium"}
               removeItem={removeItem}
             />
-          ) : null}
+          )}
         </div>
         <div className={"create-order_buttons-container"}>
           <button className={"button_secondary"} onClick={dismissOrderCreation}>
@@ -102,9 +109,8 @@ export default function CreateOrder(props) {
           </button>
           <button
             className={`button_primary ${
-              validName && editingOrder.itemList.length !== 0
-                ? null
-                : "button_disabled"
+              !(validName && editingOrder.itemList.length !== 0) &&
+              "button_disabled"
             }`}
             onClick={(currentOrder) => createOrder(currentOrder)}
             disabled={!validName || editingOrder.itemList.length === 0}

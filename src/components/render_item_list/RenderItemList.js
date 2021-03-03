@@ -17,12 +17,14 @@ export default function renderItemList(props) {
                   key={index}
                 >
                   <div className={"render-item-list_text-wrapper"}>
-                    <button
-                      className={"render-item-list_remove-item-button"}
-                      onClick={() => removeItem(index)}
-                    >
-                      {"\u2715"}
-                    </button>
+                    {size === "medium" && (
+                      <button
+                        className={"render-item-list_remove-item-button"}
+                        onClick={() => removeItem(index)}
+                      >
+                        {"\u2715"}
+                      </button>
+                    )}
                     <p>{item.name}</p>
                   </div>
                   <div className={"render-item-list_price-wrapper"}>

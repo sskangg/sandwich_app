@@ -2,12 +2,11 @@ import React from "react";
 import "./searchBar.css";
 
 export default function searchBar(props) {
-  const updateIncludeCompleted = props.updateIncludeCompleted,
-    updateSearchText = props.updateSearchText;
+  const { updateIncludeCompleted, updateSearchText } = props;
 
   return (
     <div className={"searchbar_container"}>
-      <div>
+      {/* <div>
         <input
           type={"text"}
           placeholder={"Search orders"}
@@ -15,7 +14,7 @@ export default function searchBar(props) {
           onChange={updateSearchText}
           className={"searchbar_text-input"}
         />
-      </div>
+      </div> */}
       <div className={"searchbar_checkbox-container"}>
         <input
           type={"checkbox"}

@@ -9,10 +9,10 @@ export default class Inventory {
     return this._inventory;
   }
 
-  clone = () => new Inventory(this._inventory);
+  clone = () => this._inventory;
 
   fetchInventory = () => {
-    this._inventory = data.inventory;
+    this._inventory = { ...data.inventory };
   };
 
   subtractItemFromInventory = (item) => {
