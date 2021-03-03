@@ -18,7 +18,7 @@ export default class Order {
     this._itemList = itemList;
     this._timeCreated = timeCreated;
     this._timeCompleted = timeCompleted;
-    this._id = `${this.orderName}_${this.timeCreated}`;
+    this._id = `${this.timeCreated}`;
   }
 
   get orderName() {
@@ -66,9 +66,13 @@ export default class Order {
    * Add an item to the order
    * @param {Object} newItem - An Item object defined by ./item.js
    */
-  addItem = (newItem) => {
-    this._itemList.push(newItem);
-  };
+  addItem = (newItem) => this._itemList.push(newItem);
+
+  /**
+   * Remove an item from the order
+   * @param {Object} item - The Item to remove
+   */
+  removeItem = (index) => this._itemList.splice(index, 1);
 
   /**
    * Returns the number of items in the order

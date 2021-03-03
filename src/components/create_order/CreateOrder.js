@@ -13,45 +13,62 @@ export default function CreateOrder(props) {
     } = props,
     [editingOrder, setEditingOrder] = useState(data.clone()),
     [validName, setValidName] = useState(!!data.orderName),
-    [creationInventory, setCreationInventory] = useState(inventory);
+    [editingInventory, seteditingInventory] = useState(inventory),
+    [editing] = useState(!!data.orderName);
 
   useEffect(() => {
-    document.getElementById("orderName").value = editingOrder.value;
+    document.getElementById("orderName").value = editingOrder.orderName;
   }, []);
 
-  // TODO Add inventory check
-
-  const addItem = (itemToAdd) => {
+  const addItem = (item) => {
     const updatedOrder = editingOrder.clone(),
-      updatedInventory = { ...creationInventory };
+      updatedInventory = inventory.clone();
 
-    for (let ingredient in itemToAdd.ingredients) {
-      updatedInventory[ingredient] -= itemToAdd.ingredients[ingredient];
-    }
+    updatedInventory.subtractItemFromInventory(item);
+    updatedOrder.addItem(item);
 
-    updatedOrder.addItem(itemToAdd);
     setEditingOrder(updatedOrder);
-    setCreationInventory(updatedInventory);
+    seteditingInventory(updatedInventory);
+  };
+
+  const removeItem = (index) => {
+    const updatedOrder = editingOrder.clone(),
+      updatedInventory = inventory.clone(),
+      removedItem = updatedOrder.removeItem(index)[0];
+
+    updatedInventory.addItemToInventory(removedItem);
+
+    setEditingOrder(updatedOrder);
+    seteditingInventory(updatedInventory);
   };
 
   const changeOrderName = (event) => {
     const newName = event.target.value;
     const updatedOrder = editingOrder.clone();
+
     updatedOrder.orderName = newName;
+
     setEditingOrder(updatedOrder);
     setValidName(!!newName);
   };
 
   const createOrder = () => {
     addOrderToList(editingOrder);
-    updateInventory(creationInventory);
+    updateInventory(editingInventory);
+  };
+
+  const dismissOrderCreation = () => {
+    updateInventory(editingInventory);
+    cancelOrderCreation();
   };
 
   return (
     <div className={"create-order_wrapper"}>
       <div className={"create-order_container"}>
         <div className={"create-order_top-line"}>
-          <p className={"create-order_title"}>Create Order:</p>
+          <p className={"create-order_title"}>
+            {editing ? "Edit" : "Create"} Order:
+          </p>
           <input
             type={"text"}
             placeholder={"Order name"}
@@ -67,16 +84,20 @@ export default function CreateOrder(props) {
         </div>
         <div className={"create-order_selection-container"}>
           <h4>Sandwiches</h4>
-          <Menu addItem={addItem} inventory={creationInventory} />
+          <Menu addItem={addItem} inventory={editingInventory.inventory} />
           <hr />
         </div>
         <div className={"create-order_order-summary-container"}>
           {editingOrder && editingOrder.itemList ? (
-            <RenderItemList order={data} size={"medium"} />
+            <RenderItemList
+              order={editingOrder}
+              size={"medium"}
+              removeItem={removeItem}
+            />
           ) : null}
         </div>
         <div className={"create-order_buttons-container"}>
-          <button className={"button_secondary"} onClick={cancelOrderCreation}>
+          <button className={"button_secondary"} onClick={dismissOrderCreation}>
             Cancel
           </button>
           <button
@@ -88,7 +109,7 @@ export default function CreateOrder(props) {
             onClick={(currentOrder) => createOrder(currentOrder)}
             disabled={!validName || editingOrder.itemList.length === 0}
           >
-            Create
+            {editing ? "Update" : "Create"}
           </button>
         </div>
       </div>

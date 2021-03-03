@@ -17,10 +17,6 @@ export default function menu(props) {
           }
         }
 
-        // console.log(
-        //   `${itemInfo.name} is ${available ? "available" : "not-available"}`
-        // );
-
         return (
           <MenuItem
             available={available}

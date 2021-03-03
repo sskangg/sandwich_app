@@ -8,22 +8,28 @@ export default function searchBar(props) {
   return (
     <div className={"searchbar_container"}>
       <div>
-        <label htmlFor={"searchText"}>Search:</label>
         <input
           type={"text"}
-          placeholder={"search orders"}
+          placeholder={"Search orders"}
           id={"searchText"}
           onChange={updateSearchText}
+          className={"searchbar_text-input"}
         />
       </div>
-      <div>
+      <div className={"searchbar_checkbox-container"}>
         <input
           type={"checkbox"}
           id={"includeCompleted"}
           name={"includeCompleted"}
           onChange={updateIncludeCompleted}
+          className={"searchbar_includeCompleted-toggle"}
         />
-        <label htmlFor={"includeCompleted"}>Include Completed Orders</label>
+        <label
+          className={"searchbar_includeCompleted-label"}
+          htmlFor={"includeCompleted"}
+        >
+          Include Completed Orders
+        </label>
       </div>
     </div>
   );

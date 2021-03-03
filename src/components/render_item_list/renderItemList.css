@@ -8,7 +8,7 @@
 }
 
 .list-size_medium {
-  max-height: 250px;
+  max-height: 300px;
 }
 
 .render-item-list_item {
@@ -19,4 +19,15 @@
 
 .render-item-list_total {
   text-align: right;
+}
+
+.render-item-list_text-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: baseline;
+}
+
+.render-item-list_remove-item-button {
+  background: none;
+  border: none;
 }

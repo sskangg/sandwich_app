@@ -4,7 +4,7 @@ import SearchBar from "./components/search_bar/SearchBar";
 import RenderOrder from "./components/render_order/RenderOrder";
 import CreateOrder from "./components/create_order/CreateOrder";
 import Order from "./src/order";
-import * as data from "./data.json";
+import Inventory from "./src/inventory";
 import "./styles.css";
 
 /**
@@ -43,8 +43,14 @@ export default function App() {
     [includeCompletedToggle, setIncludeCompletedToggle] = useState(false),
     [orderList, setOrderList] = useState([]),
     [completedOrders, setCompletedOrders] = useState([]),
-    [inventory, setInventory] = useState(data.inventory),
+    [inventory, setInventory] = useState(undefined),
     [newOrder, setNewOrder] = useState(undefined);
+
+  useEffect(() => {
+    let newInventory = new Inventory();
+    newInventory.fetchInventory();
+    setInventory(newInventory);
+  }, []);
 
   const updateSearchText = (event) => {
     setSearchText(event.target.value);
@@ -63,40 +69,30 @@ export default function App() {
   };
 
   const addOrderToList = (newOrder) => {
-    console.log(newOrder);
-    console.log(orderList);
-    const existingOrder = orderList.find((order) => order.id === newOrder.id);
-    const newOrderList = [...orderList];
-
-    console.log(existingOrder);
+    const existingOrder = orderList.find((order) => order.id === newOrder.id),
+      updatedOrderList = [...orderList];
 
     if (existingOrder) {
       let index = orderList.indexOf(existingOrder);
-      newOrderList[index] = newOrder;
+      updatedOrderList[index] = newOrder;
     } else {
-      newOrderList.unshift(newOrder);
+      updatedOrderList.unshift(newOrder);
     }
 
-    setOrderList(newOrderList);
+    setOrderList(updatedOrderList);
     cancelOrderCreation();
   };
 
   const cancelOrder = (order) => {
     // TODO add dialogue box to confirm cancel
-    const index = orderList.indexOf(order);
-    let modifiedOrderList = [...orderList];
-    const removedOrder = modifiedOrderList.splice(index, 1)[0];
-    const updatedInventory = { ...inventory };
+    let updatedOrderList = [...orderList];
+    const index = orderList.indexOf(order),
+      removedOrder = updatedOrderList.splice(index, 1)[0],
+      updatedInventory = inventory.clone();
 
-    console.log(removedOrder);
+    updatedInventory.addOrderToInventory(removedOrder);
 
-    removedOrder.itemList.forEach((item) => {
-      for (let ingredient in item.ingredients) {
-        updatedInventory[ingredient] += item.ingredients[ingredient];
-      }
-    });
-
-    setOrderList(modifiedOrderList);
+    setOrderList(updatedOrderList);
     setInventory(updatedInventory);
   };
 
