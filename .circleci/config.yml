@@ -1,0 +1,18 @@
+version: 2.1
+orbs:
+  node: circleci/node@3.0.0
+  
+jobs:
+  hello-world:
+    docker: 
+      - image: cimg/node:16.0.0
+    steps:
+      - checkout
+      - run: echo "Hello World"
+      
+
+workflows:
+  node-tests:
+    jobs:
+      - hello-world
+      - node/test
