@@ -1,8 +1,6 @@
 
 describe("Basic test for CircleCI testing", () => {
 
-
-
     test("that the meaning of life, the universe, and everything is 42", () => {
         
    
