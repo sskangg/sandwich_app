@@ -10,8 +10,9 @@ jobs:
       - checkout
       - run: echo "Hello World"
   test:
-    docker:
-      - image: cimg/node:16:0:0
+    executor:
+      name: node/default
+      tag: '10.4'
     steps:
       - checkout
       - node/with-cache:
