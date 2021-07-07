@@ -10,6 +10,8 @@ jobs:
       - checkout
       - run: echo "Hello World"
   test:
+    docker:
+      - image: cimg/node:16:0:0
     steps:
       - checkout
       - run: npm test
