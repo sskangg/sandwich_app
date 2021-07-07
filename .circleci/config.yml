@@ -1,27 +1,31 @@
-version: 2.1
-orbs:
-  node: circleci/node@3.0.0
-  
+version: 2
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:14.15.4
 jobs:
-  hello-world:
-    docker: 
-      - image: cimg/node:16.0.0
+  core:
+    <<: *defaults
+    working_directory: ~/repo
     steps:
       - checkout
-      - run: echo "Hello World"
-  test:
-    executor:
-      name: node/default
-      tag: '10.4'
-    steps:
-      - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - run: npm ci
       - run: npm run test
-
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
 workflows:
-  node-tests:
+  version: 2
+  core:
     jobs:
-      - hello-world
-      - test
+      - core:
+          filters:
+            branches:
+              only:
+                - master
