@@ -9,10 +9,16 @@ jobs:
     steps:
       - checkout
       - run: echo "Hello World"
-      
+  test:
+    name: my_test
+    docker:
+      - image: cimg/node:16:0:0
+    steps:
+      - checkout
+      - run: npm test
 
 workflows:
   node-tests:
     jobs:
       - hello-world
-      - node/test
+      - test
