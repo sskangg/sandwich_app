@@ -14,9 +14,9 @@ jobs:
       - image: cimg/node:16:0:0
     steps:
       - checkout
-      - node/with/cache:
-        steps:
-          - run: npm install
+      - node/with-cache:
+          steps:
+            - run: npm install
       - run: npm run test
 
 workflows:
