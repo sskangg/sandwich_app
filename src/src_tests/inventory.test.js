@@ -13,6 +13,4 @@ describe("Basic test for CircleCI testing", () => {
         return expect(theAnswer).resolves.toBe(42);
 
     });
-
-    // testing tags
 });

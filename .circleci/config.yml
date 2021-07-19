@@ -19,9 +19,12 @@ jobs:
       - run: npm run test
       - persist_to_workspace:
           root: ~/repo
-          paths: .
+          paths: [.]
 workflows:
   version: 2
   core:
     jobs:
-      - core
+      - core:
+          filters:
+            tags:
+              only: /^v.*/
