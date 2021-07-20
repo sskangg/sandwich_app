@@ -1,5 +1,6 @@
 version: 2
-defaults: &defaults
+defaults:
+  &defaults
   working_directory: ~/repo
   docker:
     - image: circleci/node:14.15.4
@@ -19,7 +20,8 @@ jobs:
       - run: npm run test
       - persist_to_workspace:
           root: ~/repo
-          paths: [.]
+          paths: [ . ]
+    parallelism: 2
 workflows:
   version: 2
   core:
