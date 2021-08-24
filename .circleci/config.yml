@@ -15,7 +15,7 @@ jobs:
   zoo:
     <<: *defaults
     steps:
-      - run: echo 'hi'
+      - run: echo 'hello'
 
 workflows:
   # Name the workflow "welcome"
